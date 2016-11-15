@@ -4,4 +4,6 @@
 
 // index(stage)
 
-// git track changes
+// git track changes of files.
+
+// use branch

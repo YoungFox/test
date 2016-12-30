@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<!--标注：下面略微修改了英文版的示例，主要是执行3次testPromise()的效果，如果您有疑问，可以参看英文的说明文档：https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise-->
+<div id="log"></div>
+<script>
+    var p1 = new Promise(function (resolve) {
+    setTimeout(function () {
+        resolve("Hello");
+    }, 3000);
+});
+
+var p2 = new Promise(function (resolve) {
+    setTimeout(function () {
+        resolve("World");
+    }, 1000);
+});
+
+Promise.all([p1, p2]).then(function (result) {
+    console.log(result); // ["Hello", "World"]
+});
+</script>
+</body>
+</html>

@@ -1,29 +1,67 @@
-var st = +new Date();
+const version = 'static-v5';
+
+
+const expectedCaches = [version];
+
 self.addEventListener('install', event => {
-  console.log('V1 installing…');
-  console.log('install time :' + (+new Date()-st));
-  // cache a cat SVG
+  self.skipWaiting();
+
+  console.log(version + ' 安装中');
+
+  // cache a horse SVG into a new cache, staticversion + -
   event.waitUntil(
-    
-    caches.open('static-v1').then(cache => {cache.add('/images/cat.jpg');console.log('cache cat time :' + (+new Date()-st));})
+    caches.open(version).then(cache => {
+      // cache.add('/images/horse.jpg');
+      cache.add('/javascripts/pwa/index.js');
+    })
   );
 });
 
 self.addEventListener('activate', event => {
-  console.log('V1 now ready to handle fetches!');
-  console.log('active time :' + (+new Date()-st));
+  // delete any caches that aren't in expectedCaches
+  // which will get rid of static-v1
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.map(key => {
+        if (!expectedCaches.includes(key)) {
+          return caches.delete(key);
+        }
+      })
+    )).then(() => {
+      console.log(version + ' 现在可以处理请求！',+new Date());
+    })
+  );
 });
 
-console.log('fetch start');
-self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-  console.log('fetch time :' + (+new Date()-st));
-  // serve the cat SVG from the cache if the request is
-  // same-origin and the path is 'dog.jpg'
-  // debugger;
-  console.log(url);
-  if (url.origin == location.origin && url.pathname == '/images/dog.jpg') {
-    event.respondWith(caches.match('/images/cat.jpg'));
-  }
+this.addEventListener('fetch', function (event) {
+    event.respondWith(
+        caches.match(event.request).then(function (response) {
+            // 来来来，代理可以搞一些代理的事情
+
+            // 如果 Service Worker 有自己的返回，就直接返回，减少一次 http 请求
+            if (response) {
+                return response;
+            }
+
+            // 如果 service worker 没有返回，那就得直接请求真实远程服务
+            var request = event.request.clone(); // 把原始请求拷过来
+            return fetch(request).then(function (httpRes) {
+
+                // http请求的返回已被抓到，可以处置了。
+
+                // 请求失败了，直接返回失败的结果就好了。。
+                if (!httpRes || httpRes.status !== 200) {
+                    return httpRes;
+                }
+
+                // 请求成功的话，将请求缓存起来。
+                // var responseClone = httpRes.clone();
+                // caches.open(version).then(function (cache) {
+                //     cache.put(event.request, responseClone);
+                // });
+
+                return httpRes;
+            });
+        })
+    );
 });
-console.log('fetch end');

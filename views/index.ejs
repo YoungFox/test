@@ -1,17 +1,39 @@
 <!DOCTYPE html>
-<script>console.log('页面请求5',+new Date());</script>
+<script>console.log('页面请求开始');</script>
+<link rel="stylesheet" href="stylesheets/pwa/index.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-An image will appear here in 3 seconds:
-
+<body>
+	测试PWA
+</body>
 <script src="javascripts/pwa/index.js"></script>
 <script>
-navigator.serviceWorker.register('sw.js')
-	.then(reg => console.log('service worker 注册成功!'))
-	.catch(err => console.log('Boo!', err));
 
-// setTimeout(() => {
-// 	const img = new Image();
-// 	img.src = 'images/dog.jpg';
-// 	document.body.appendChild(img);
-// }, 1000);
+if ('serviceWorker' in navigator) {
+	window.addEventListener('load', function() {
+		navigator.serviceWorker.register('sw.js')
+			.then(reg => {console.log('service worker 注册成功!')
+				// console.log(reg.installing);
+				// console.log(reg.waiting);
+				// console.log(reg.active);
+				//  reg.addEventListener('updatefound', () => {
+			 //    // A wild service worker has appeared in reg.installing!
+			 //    const newWorker = reg.installing;
+
+			 //    console.log(newWorker.state);
+			 //    // "installing" - the install event has fired, but not yet complete
+			 //    // "installed"  - install complete
+			 //    // "activating" - the activate event has fired, but not yet complete
+			 //    // "activated"  - fully active
+			 //    // "redundant"  - discarded. Either failed install, or it's been
+			 //    //                replaced by a newer version
+
+			 //    newWorker.addEventListener('statechange', () => {
+			 //     console.log('newWorker.state has changed');
+			 //    });
+			 //  });
+		})
+			.catch(err => console.log('Boo!', err));
+	});
+}
 </script>

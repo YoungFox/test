@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Service Worker Precache Test</title>
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+
+  <body>
+    <p>
+      This is a live demo illustrating the use of the
+      <a href="https://github.com/googlechrome/sw-precache"><code>sw-precache</code></a>
+      library to make a site's content available offline via service workers.
+    </p>
+
+    <p>Check out <code>chrome://serviceworker-internals</code> for info on what's being cached.</p>
+
+    <p>Here's a precached image:</p>
+    <img src="images/one.png">
+
+    <p>
+      Try stopping the local web server (if you're accessing the <code>dist</code> version of this
+      site via <code>localhost</code>) and disabling your network connection,
+      and then visit <a href="images/two.png?utm_source=dummy">images/two.png</a>.
+      Since it was precached, it should still load.
+    </p>
+
+    <div>
+      <button id="clear-cache">Clear Cache</button>
+    </div>
+    <script src="js/a.js"></script>
+    <script src="js/b.js"></script>
+    <script src="js/service-worker-registration.js"></script>
+    <script>
+      function sendMessage(message) {
+        return new Promise(function(resolve, reject) {
+          if (navigator.serviceWorker.controller) {
+            var messageChannel = new MessageChannel();
+            messageChannel.port1.onmessage = function (event) {
+              if (event.data.error) {
+                reject(event.data.error);
+              } else {
+                resolve(event.data);
+              }
+            };
+
+            navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);
+          } else {
+            reject("This page isn't currently controlled by a service worker. Please reload and try again.");
+          }
+        });
+      }
+
+      document.querySelector('#clear-cache').addEventListener('click', function() {
+        sendMessage({command: 'delete_all'}).then(function() {
+          console.log('All caches deleted.');
+        }).catch(function(error) {
+          console.error('Caches not deleted:', error);
+        });
+      });
+    </script>
+  </body>
+</html>

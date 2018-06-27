@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+</head>
+<body>
+	
+	<script>
+		// function a(ms) {
+		// 	return new Promise(r => setTimeout(r, ms));
+		// }
+
+		// async function abs() {
+		// 	const aa = a(1500);
+		// 	const bb = a(1500);
+		// 	await aa;
+		// 	console.log(1);
+
+		// 	await bb;
+		// 	console.log(2);
+
+		// 	return 'done';
+		// }
+		// abs();
+
+
+		// var a = Symbol();
+
+		// var b = {};
+		// b[a] = 123;
+		// console.log(b[a]);
+		// var a = Symbol();
+		// // b[a] = 234;
+
+		// console.log(b[a]);
+
+
+		// function a(n){
+		// 	if(n === 1) return 1;
+		// 	return n* a(n-1);
+		// }
+		// 'use strict';
+
+		// function a(n ,total){
+		// 	if(n ===1 ) return total;
+		// 	return a(n-1,n*total);
+		// }
+		// // console.log(a(500000000,1));
+
+
+		// function b(n, sum1 = n,sum2 = 1){
+
+		// 	if (n <= 1) return sum2;
+
+		// 	return b(n-1,n-1,sum1+sum2);
+		// }
+
+		// console.log(b(5000));
+
+		// function Fibonacci2 (n , ac1 = 1 , ac2 = 1) {
+		//   if( n <= 1 ) {return ac2};
+
+		//   return Fibonacci2 (n - 1, ac2, ac1 + ac2);
+		// }
+
+		// console.log(Fibonacci2(100));
+
+		// function trampoline(f) {
+		// while (f && f instanceof Function) {
+		// f = f();
+		// }
+		// return f;
+		// }
+
+		// function sum(x, y) {
+		// if (y > 0) {
+		// return sum.bind(null, x + 1, y - 1);
+		// } else {
+		// return x;
+		// }
+		// }
+
+		// console.log(trampoline(sum(1, 100000000)))
+		// function tco(f) {
+		//   var value;
+		//   var active = false;
+		//   var accumulated = [];
+
+		//   return function accumulator() {
+		//     accumulated.push(arguments);
+		//     if (!active) {
+		//       active = true;
+		//       while (accumulated.length) {
+		//         value = f.apply(this, accumulated.shift());
+		//       }
+		//       active = false;
+		//       return value;
+		//     }
+		//   };
+		// }
+
+		// var sum = tco(function(x, y) {
+		//   if (y > 0) {
+		//     return sum(x + 1, y - 1)
+		//   }
+		//   else {
+		//     return x
+		//   }
+		// });
+
+		
+		// console.log(sum(1, 100000000));
+		// function tco(f) {
+		//   var value;
+		//   var active = false;
+		//   var accumulated = [];
+		//   console.log(value);
+		//   return function accumulator() {
+		//     accumulated.push(arguments);
+		//     if (!active) {
+		//       active = true;
+		//       while (accumulated.length) {
+		//         value = f.apply(this, accumulated.shift());
+		//       }
+		//       active = false;
+		//       return value;
+		//     }
+		//   };
+		// }
+
+		// var sum = tco(function(x, y) {
+		//   if (y > 0) {
+		//     return sum(x + 1, y - 1)
+		//   }
+		//   else {
+		//     return x
+		//   }
+		// });
+
+		// sum(1, 100000)
+
+		// let a = [0,1,2,3,4,5].find(n => n > 4);
+		// console.log(a);
+
+		// console.log(Object.is('string','123'));
+
+
+		// console.log([1,NaN].findIndex(y => Object.is(NaN, y)));
+
+		// console.log([1,2,3].fill(8));
+
+
+		//Iterator接口主要供for...of消费
+
+
+		// ***************************************************
+		// Set数据结构
+		// 不会有重复值
+
+		// const set = new Set([{a:1},{a:1},{b:2}]);
+		// console.log(set);
+
+
+		// let arr = [1,2,1,1,1,2];
+		// let arr1 = [...new Set(arr)]
+		// console.log(arr1);
+
+		// 对象总不相等 
+
+		// let set = new Set();
+
+		// set.add({});
+		// console.log(set.size);
+
+		// set.add({});
+		// console.log(set.size);
+
+
+		// ***************************************************
+		// Map数据结构
+		// 值-值
+
+		// const data = new Map();
+		// const element = document.querySelector('body');
+
+		// data.set(element,'metadata');
+		// console.log(data.get(element));
+		// console.log(data[element]);
+		// data.delete(element);
+		// console.log(data.get(element));
+
+		// Map按实例取值，而非值。也就是说键名是和内存地址绑定的
+
+
+		// Generator函数，状态机、遍历器
+
+		// function* a(){
+		// 	console.log('step 1');
+		// 	yield 'yield 1';
+		// 	yield 'yield 2';
+		// 	yield 'yield 3';
+		// 	console.log('step 2');
+		// 	return 'end';
+		// }
+
+		// let b = a();
+		// console.log(b.next());
+
+		// console.log(b.next());
+		// console.log(b.next());
+		// console.log(b.next());
+
+
+		// function* status(){
+		// 	while(true){
+		// 		console.log(1);
+		// 		yield;
+		// 		console.log(2);
+		// 		yield
+		// 	}
+		// } 
+
+		// let s = status();
+		// s.next();
+		// s.next();
+		// s.next();
+		// s.next();
+		// s.next();
+		// s.next();
+
+
+		// 测试async
+		function aa(){
+			return new Promise(function (resolve){
+				setTimeout(()=>resolve('z'),1000);
+			});
+		}
+
+		async function a(){
+			let z = await aa();
+
+			let x = await 'x';
+			console.log(z);
+			console.log(x);
+		}
+
+		a();
+		console.log('y');
+	</script>
+</body>
+</html>

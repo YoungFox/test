@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+</head>
+<body>
+    <script>
+        // 重试
+        function getData() {
+            if (Math.random() * 10 < 5) {
+                return Promise.reject('err');
+            } else {
+                return Promise.resolve('data');
+            }
+        }
+
+        async function a() {
+            for (var i = 0; i < 10; i++) {
+                try {
+                    var d = await getData();
+                    break;
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+            console.log(i);
+            return d;
+        }
+
+        var b = a();
+        b.then(function (data) {
+            console.log(data);
+        });
+
+        
+    </script>
+</body>
+</html>

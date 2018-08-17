@@ -231,22 +231,114 @@
 
 
 		// 测试async
-		function aa(){
-			return new Promise(function (resolve){
-				setTimeout(()=>resolve('z'),1000);
-			});
+		// function aa(){
+		// 	return new Promise(function (resolve){
+		// 		setTimeout(()=>resolve('z'),1000);
+		// 	});
+		// }
+
+		// async function a(){
+		// 	let z = await aa();
+
+		// 	let x = await 'x';
+		// 	console.log(z);
+		// 	console.log(x);
+		// }
+
+		// a();
+		// console.log('y');
+
+
+		// var a = {};
+		// Object.defineProperty(a,'x',{
+		// 	get: function(){
+		// 		return 2;
+		// 	},
+		// 	set: function (v){
+		// 		// return v;
+		// 		alert(v);
+		// 		return v;
+		// 	}
+		// });
+
+
+		//双向数据绑定
+		// function Observer(obj, key, value){
+		// 	var dep = new Dep();
+
+		// 	if(Object.prototype.toString.call(value) == '[object Object]'){
+		// 		Object.keys(value).forEach(function (key){
+		// 			new Observer(value,key,value[key]);
+		// 		});
+		// 	}
+
+
+		// 	Object.defineProperty(obj,key,{
+		// 		enumrable: true,
+		// 		configrable: true,
+		// 		get: function (){
+		// 			if(Dep.target && !dep.watchList.includes(Dep.target)){
+		// 				dep.addSub(Dep.target);
+		// 			}
+		// 			return value;
+		// 		},
+		// 		set: function (newValue){
+		// 			value = newValue;
+		// 			dep.notify();
+		// 		}
+
+		// 	});
+		// }
+
+		// function Watcher(fn) {
+		// 	this.upDate = function() {
+		// 		Dep.target = this;
+		// 		fn();
+		// 		Dep.target = null;
+		// 	}
+		// 	this.upDate();
+		// }
+		// function Dep(){
+		// 	this.watchList = [];
+			
+		// }
+
+		// Dep.prototype = {
+		// 	constructor : Dep,
+		// 	addSub: function (watcher){
+		// 		this.watchList.push(watcher);
+		// 	},
+
+		// 	notify: function(){
+		// 		this.watchList.forEach(function (v,k){
+		// 			v.upDate();
+		// 		});
+		// 	}
+		// }
+
+		// var x = {
+		// 	a:1,
+		// 	b:2,
+		// 	c:3
+		// }
+
+		// Object.keys(x).forEach(function (v,k){
+		// 	new Observer(x,v,x[v]);
+		// });
+
+		// new Watcher(function (){
+		// 	console.log(1111111111);
+		// 	document.querySelector('body').innerHTML = x.a;
+		// });
+
+		var a = 1;
+		var b = 2;
+		var c = 3;
+		if(a === 1){
+			console.log(a);
+		}else if(b === 2){
+			console.log(b);
 		}
-
-		async function a(){
-			let z = await aa();
-
-			let x = await 'x';
-			console.log(z);
-			console.log(x);
-		}
-
-		a();
-		console.log('y');
 	</script>
 </body>
 </html>

@@ -8,7 +8,15 @@
 </head>
 <body>
     <script>
-        // 重试
+        function common(){
+            return new Promise(function (resolve){
+                setTimeout(() => {
+                    resolve('common'); 
+                }, 1000);
+            });
+        }
+
+        // await多次重试，如果await成功则break，否则catch并且continue
         function getData() {
             if (Math.random() * 10 < 5) {
                 return Promise.reject('err');
@@ -35,7 +43,59 @@
             console.log(data);
         });
 
-        
+
+        // 错误处理
+        async function a0(){
+            try{
+                let a = await Promise.reject('err').catch(function (e){
+                    console.log('第一次捕捉',e);
+                });
+                // let a = await Promise.reject('err');
+            }catch(e){
+                console.log('重复捕捉',e);
+            }
+            let b = await Promise.resolve('succ');
+            return b;
+        }
+        a0().then(function (d){
+            console.log(d);
+        });
+
+
+        // async直接返回promise
+        async function a1(){
+            return 'promise?';
+        }
+
+        a1().then(d=>console.log(d));
+
+        // 对象async方法
+
+        let a2 = {
+            a: async function (){
+                let d = await common();
+                return d;
+            }
+        }
+
+        a2.a().then(function (d){
+            console.log(d);
+        });
+
+        class A{
+            constructor(){
+
+            }
+
+            async getData(){
+                return await common();
+            }
+        }
+
+        var instanceA = new A();
+        instanceA.getData().then(function (d){
+            console.log(`class:${d}`);
+        });
     </script>
 </body>
 </html>

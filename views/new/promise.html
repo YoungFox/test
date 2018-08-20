@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>promise</title>
+</head>
+<body>
+    <script>
+        // 链式promise
+
+        function a(data){
+            return new Promise(function (resolve, reject){
+                setTimeout(() => {
+                    console.log('p1');
+                    if(data == 'p2'){
+                        resolve('p1'); 
+                    }else{
+                        resolve('p0');
+                    }
+                }, 1000);
+            });
+        }
+
+        function b() {
+            return new Promise(function (resolve, reject) {
+                setTimeout(() => {
+                    resolve('p3');
+                }, 1000);
+            });
+        }
+
+        a().then(b).then(function (d){
+            console.log(d);
+        });
+
+
+        let p0 = new Promise(function (resolve,reject){
+            console.log('new Promise');
+            resolve();
+        });
+
+        p0.then(function (){
+            console.log('resolved');
+        });
+
+        console.log('hi');
+    </script>
+</body>
+</html>

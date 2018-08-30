@@ -37,3 +37,15 @@ if ('serviceWorker' in navigator) {
 	});
 }
 </script>
+
+<script type="module">
+	// import utils from "./util.js";
+	import utils from './js/x.js';
+
+	const x = 1;
+
+	console.log(x === window.x); //false
+	console.log(this === undefined); // true
+
+      // other code
+</script>

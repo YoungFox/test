@@ -27,7 +27,12 @@
      -->
     <script type="module">
         // import utils from "./util.js";
-        
+        import utils from 'https://example.com/js/utils.js';
+
+            const x = 1;
+
+            console.log(x === window.x); //false
+            console.log(this === undefined); // true
 
       // other code
     </script>

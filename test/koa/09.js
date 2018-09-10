@@ -10,7 +10,7 @@ const one = (ctx, next) => {
 
 const two = (ctx, next) => {
     console.log('>> two');
-    // next();
+    next();
     console.log('<< two');
 }
 

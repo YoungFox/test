@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        <!-- 强制不转义，目前chrome会探测到问题，需要设置头'X-XSS-Protection', 0 -->
+        <%- q %>
+    </h1>
+</body>
+
+</html>

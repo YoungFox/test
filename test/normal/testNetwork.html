@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log(navigator.onLine);
+
+        window.addEventListener('offline',function (){
+            console.log('断网了');
+        });
+
+        window.addEventListener('storage',function(e){
+            console.log(e);
+        });
+
+        localStorage.setItem('abs','1234');
+
+        var indexedDB = window.indexedDB || window.msIndexedDB || window.mozIndexedDB || window.webkitIndexedDB;
+
+        var request, database;
+
+        request = indexedDB.open('test');
+
+        request.onerror = function (){
+            console.log('数据库打开错误',e.target.errorCode);
+        }
+
+        request.onsuccess = function (e){
+            database = e.target.result;
+            console.log('数据库是:',database);
+            console.log(e);
+            
+            if(database.version != '1.0'){
+                request = database.setVersion("1.0");
+                request.onsuccess = function (){
+                    console.log(
+                        '设置成功'
+                    );
+                    var user = {
+                        username: '007',
+                        firstName: 'James',
+                        lastName: 'Bond',
+                        password: 'foo'
+                    }
+
+                    var store = database.createObjectStore('users',{keyPath:'username'});
+                    store.add(user);
+
+                    cosnole.log('存储后的数据库是：',storet);
+                }
+            }
+
+        }
+
+    
+    </script>
+</body>
+</html>

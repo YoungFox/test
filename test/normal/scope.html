@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a = 1;
+        // var b = 11;
+
+        function foo(){
+            this.a = 3;
+            this.b = 33;
+
+            return {
+                a: 44,
+                b: 44,
+                setA(){
+                    this.a = 2;
+                    this.b = 22;
+                },
+                getA(){
+                    return this;
+                },
+                getA1: ()=>{
+                    return this;
+                },
+                getB(){
+                    return b;
+                }
+                
+            }
+        }
+
+        var f = foo();
+        console.log(f.getA());
+        console.log(f.getA1());
+        console.log(f.getB());
+        
+        // var aa = 1;
+        // function bar(){
+        //     aa = 2;
+        //     return function(){
+        //         // return aa;
+        //         console.log(aa);
+        //     }
+        // }
+
+        // var ib = bar();
+        // // console.log(ib());
+        // ib();
+
+    //     function outer(){
+    //      var scope = "outer";
+    //      function inner(){
+    //         return this;
+    //      }
+    //      return inner;
+    //   }
+    //   var fn = outer();
+    //   console.log(fn());
+
+    function aaa(){
+        console.log(this);
+        function bbb(){
+            console.log(this);
+        }
+        bbb();
+    }
+    aaa();
+
+    // 一般函数内部的this指向window，嵌套也如此；对象上的function，this指向对象
+    </script>
+</body>
+</html>

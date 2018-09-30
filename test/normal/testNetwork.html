@@ -24,7 +24,7 @@
 
         var request, database;
 
-        request = indexedDB.open('test');
+        request = indexedDB.open('test',2);
 
         request.onerror = function (){
             console.log('数据库打开错误',e.target.errorCode);
@@ -35,27 +35,59 @@
             console.log('数据库是:',database);
             console.log(e);
             
-            if(database.version != '1.0'){
-                request = database.setVersion("1.0");
-                request.onsuccess = function (){
-                    console.log(
-                        '设置成功'
-                    );
-                    var user = {
-                        username: '007',
-                        firstName: 'James',
-                        lastName: 'Bond',
-                        password: 'foo'
-                    }
+            var store = database.transaction("users",'readwrite').objectStore('users');
+            
+            var user1 = {
+                username: '008',
+                firstName: 'James',
+                lastName: 'Bond',
+                password: 'foo'
+            }
+            
+            store.add(user1);
 
-                    var store = database.createObjectStore('users',{keyPath:'username'});
-                    store.add(user);
-
-                    cosnole.log('存储后的数据库是：',storet);
-                }
+            console.log('查询结果是：',store);
+        }
+        var x = 1;
+        request.onupgradeneeded = function(e){
+            var user = {
+                username: '007',
+                firstName: 'James',
+                lastName: 'Bond',
+                password: 'foo'
             }
 
+            var store = e.target.result.createObjectStore('users',{keyPath:'username'});
+            store.add(user);
+
+            console.log('存储后的数据库是：',store);
+            // console.log();
+            // // if(database.version != '2.0'){
+            // //     request = database.setVersion("2.0");
+            //     request.onsuccess = function (){
+            //         console.log(
+            //             '设置成功'
+            //         );
+            //         var user = {
+            //             username: '007',
+            //             firstName: 'James',
+            //             lastName: 'Bond',
+            //             password: 'foo'
+            //         }
+
+            //         var store = database.createObjectStore('users',{keyPath:'username'});
+            //         store.add(user);
+
+            //         cosnole.log('存储后的数据库是：',storet);
+            //     }
+            // // }else{
+            //     request = database.transaction("users").objectStore('users').get('007');
+            //     console.log('查到的结果是',request);
+            // // }
+
         }
+        
+        
 
     
     </script>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="btn">123</div>
+    <script>
+        function bind(fn, context) {
+            var args = Array.prototype.slice.call(arguments, 2);
+            return function () {
+                var innerArgs = Array.prototype.slice.call(arguments);
+                var finalArgs = args.concat(innerArgs);
+                return fn.apply(context, finalArgs);
+            }
+        }
+
+        var handler = {
+            message: '事件处理器',
+            handleClick: function (name, event) {
+                console.log(this.message + ':' + name + ':' + event.type);
+            }
+        }
+
+        var btn = document.querySelector('#btn');
+
+        btn.addEventListener('click', bind(handler.handleClick, handler, '#btn'));
+    </script>
+
+</body>
+
+</html>

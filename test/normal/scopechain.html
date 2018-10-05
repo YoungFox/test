@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var name = 'window';
+        var obj = {
+            name: 'obj',
+            getName: function () {
+                //    return this.name;
+                var self = this;
+                return function () {
+                    // return this.name;
+                    return self.name;
+                }
+            },
+            getElese: function () {
+                console.log(this.name);
+                function a() {
+                    console.log(this.name);
+                }
+
+                // return a();
+                a();
+            }
+        };
+
+        // console.log(obj.getName()());
+        // console.log(obj.getElese());
+        obj.getElese();
+
+        function x() {
+            function y() {
+                console.log(this.name);
+            }
+            y();
+        }
+        x();
+        (function () {
+            (function () {
+                (function () {
+                    (function () {
+                        (function () {
+                            (function () {
+                                (function () {
+                                    console.log('嵌套的this',this,this === window);
+                                })();
+                            })();
+                        })();
+                    })();
+                })();
+            })();
+        })();
+        // 一般函数内部的this指向window，嵌套也如此；对象上的function，this指向对象
+    </script>
+</body>
+
+</html>

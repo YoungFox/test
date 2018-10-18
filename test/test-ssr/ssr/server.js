@@ -1,5 +1,5 @@
 const Koa = require('koa');
-const createApp = require('./app');
+const createApp = require('./build/server-bundle.js');
 const renderer = require('vue-server-renderer').createRenderer({
     template: require('fs').readFileSync('./index.template.html', 'utf-8')
 });

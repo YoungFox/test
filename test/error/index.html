@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const myError =new Error('请改进代码')
+        // console.log(myError.message)
+        // console.log(myError)
+
+        // const a = 5
+        // try{
+        //     console.log(b)
+        // }catch(err){
+        //     console.log(err)
+        // }
+        // // console.log(b)
+        // console.log(a)
+
+        // async function c(){
+        //     let a = await 123
+        //     console.log(b)
+        // }
+        // c()
+        // console.log('xxx')
+
+        // function d(){
+        //     let a = 123;
+        //     console.log(b)
+        // }
+        // try{
+        //     d()
+        // }catch(e){
+        //     console.log(e)
+        // }
+        // console.log('yyy')
+
+        let e = new Promise(function (resolve,reject){
+            console.log(b)
+
+            resolve('resolve')
+        })
+
+        e.then(function(d){
+            console.log(d)
+        }).catch((e) => {
+            console.log(e)
+        })
+    </script>
+</body>
+</html>

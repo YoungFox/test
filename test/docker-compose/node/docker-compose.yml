@@ -1,0 +1,11 @@
+# test
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:3000"
+  nginx0:
+    build: ./nginx
+    ports:
+      - "8008:8008"

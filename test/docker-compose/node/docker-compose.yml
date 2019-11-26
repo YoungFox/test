@@ -1,11 +1,13 @@
 # test
 version: '3'
 services:
-  web:
+  node01:
     build: .
+    image: yangwenliang/node:01
     ports:
       - "5000:3000"
-  nginx0:
+  nginx01:
     build: ./nginx
+    image: yangwenliang/nginx:01
     ports:
       - "8008:8008"

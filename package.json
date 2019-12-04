@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "compression": "^1.7.3",
-    "puppeteer": "^1.7.0"
+    "puppeteer": "^1.7.0",
+    "webpack": "^4.41.2"
   }
 }

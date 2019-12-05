@@ -5,7 +5,13 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: './src/index.js'
+    app: './src/index.js',
+    another: './src/another-module.js'
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   devtool: 'inline-source-map',
   devServer: {

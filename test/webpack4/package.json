@@ -9,7 +9,8 @@
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "server": "node server.js",
     "dev-server": "node dev.server.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "build0": "webpack --config webpack.config.js"
   },
   "keywords": [],
   "author": "",

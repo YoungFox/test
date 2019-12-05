@@ -2,6 +2,10 @@ import _ from 'lodash'
 import printMe from './print.js'
 import './style.css'
 
+if (process.env.NODE_ENV !== 'production'){
+    console.log('dddddddddddddddd')
+}
+
 function component() {
   var element = document.createElement('div');
   var btn = document.createElement('buttotn')

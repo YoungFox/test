@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import Print from './print'
 // import printMe from './print.js'
 // import './style.css'
 
@@ -20,11 +21,11 @@ function component() {
   element.appendChild(br)
   element.appendChild(btn)
 
-
-  btn.onclick = e => import(/* webpackChunkName: "print"*/ './print').then(module => {
-    var print = moodule.default
-    print()
-  })
+  btn.onclick = Print.bind(null, 'Hello webpack!')
+  // btn.onclick = e => import(/* webpackChunkName: "print"*/ './print').then(module => {
+  //   var print = moodule.default
+  //   print()
+  // })
   return element
 };
 

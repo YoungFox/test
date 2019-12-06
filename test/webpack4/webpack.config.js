@@ -36,11 +36,12 @@ module.exports = {
       title: 'Caching'
     }),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HashedModuleIdsPlugin()
   ],
   output: {
     filename: '[name].[hash].js',
-    chunkFilename: '[name].[hash].js',
+    chunkFilename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   }

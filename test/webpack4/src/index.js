@@ -1,4 +1,4 @@
-// import _ from 'lodash'
+import _ from 'lodash'
 // import printMe from './print.js'
 // import './style.css'
 
@@ -6,14 +6,28 @@
 //   console.log('dddddddddddddddd')
 // }
 
-async function component() {
-  const _ = await import(/* webpackChunkName: "lodash" */ 'lodash')
+function component() {
+  // const _ = await import(/* webpackChunkName: "lodash" */ 'lodash')
 
   var element = document.createElement('div');
+  // element.innerHTML = _.join(['Hello', 'webpack'], ' ')
+  var btn = document.createElement('buttotn')
+  var br = document.createElement('br')
+
+  btn.innerHTML = 'Click me and check the console!'
   element.innerHTML = _.join(['Hello', 'webpack'], ' ')
+
+  element.appendChild(br)
+  element.appendChild(btn)
+
+
+  btn.onclick = e => import(/* webpackChunkName: "print"*/ './print').then(module => {
+    var print = moodule.default
+    print()
+  })
   return element
 };
-// var btn = document.createElement('buttotn')
+
 
 //   element.innerHTML = _.join(['Hello', 'webpack'], ' ')
 
@@ -24,10 +38,10 @@ async function component() {
 
 // return element
 
-// document.body.appendChild(component())
-component().then(component => {
-  document.body.appendChild(component)
-})
+document.body.appendChild(component())
+// component().then(component => {
+//   document.body.appendChild(component)
+// })
 
 // if (module.hot) {
 //   module.hot.accept('./print.js', function () {

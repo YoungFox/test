@@ -1,3 +1,5 @@
+console.log('The printt.js module has loaded!See the nettwork tab in dev tools...')
+
 export default function printMe() {
-    console.log('I get called from print.js!!')
+    console.log('Button Clicked: Here\'s "some textt"!')
 }

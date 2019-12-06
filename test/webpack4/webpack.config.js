@@ -7,11 +7,16 @@ module.exports = {
   entry: {
     app: './src/index.js'
   },
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all'
-  //   }
-  // },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      // cacheGroups: {
+      //   vendors: {
+      //     reuseExistingChunk: true
+      //   }
+      // }
+    }
+  },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
@@ -28,14 +33,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Output Management'
+      title: 'Caching'
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
   output: {
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   }

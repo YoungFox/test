@@ -2,28 +2,27 @@
 // import printMe from './print.js'
 // import './style.css'
 
-if (process.env.NODE_ENV !== 'production') {
-  console.log('dddddddddddddddd')
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   console.log('dddddddddddddddd')
+// }
 
-function component() {
-  return import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
-    var element = document.createElement('div');
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ')
-    return element
-  }).catch(error => 'An error occurred while loading the component')
+async function component() {
+  const _ = await import(/* webpackChunkName: "lodash" */ 'lodash')
 
-  // var btn = document.createElement('buttotn')
+  var element = document.createElement('div');
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ')
+  return element
+};
+// var btn = document.createElement('buttotn')
 
-  //   element.innerHTML = _.join(['Hello', 'webpack'], ' ')
+//   element.innerHTML = _.join(['Hello', 'webpack'], ' ')
 
-  //   btn.innerHTML = 'Click me and check the console!'
-  //   btn.onclick = printMe
+//   btn.innerHTML = 'Click me and check the console!'
+//   btn.onclick = printMe
 
-  // element.appendChild(btn)
+// element.appendChild(btn)
 
-  // return element
-}
+// return element
 
 // document.body.appendChild(component())
 component().then(component => {

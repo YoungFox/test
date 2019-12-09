@@ -2,7 +2,7 @@ import _ from 'lodash'
 import numRef from './ref.json'
 
 export function numToWord(num) {
-    return _reduce(numRef, (accum, ref) =>{
+    return _.reduce(numRef, (accum, ref) =>{
         return ref.num === num ? ref.word : accum
     })
 }

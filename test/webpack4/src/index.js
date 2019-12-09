@@ -1,4 +1,4 @@
-import _ from 'lodash'
+// import _ from 'lodash'
 import Print from './print'
 // import printMe from './print.js'
 // import './style.css'
@@ -6,6 +6,9 @@ import Print from './print'
 // if (process.env.NODE_ENV !== 'production') {
 //   console.log('dddddddddddddddd')
 // }
+
+// let a = require('../library')
+// console.log(a)
 
 function component() {
   // const _ = await import(/* webpackChunkName: "lodash" */ 'lodash')
@@ -16,7 +19,7 @@ function component() {
   var br = document.createElement('br')
 
   btn.innerHTML = 'Click me and check the console!'
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ')
+  element.innerHTML = join(['Hello', 'webpack'], ' ')
 
   element.appendChild(br)
   element.appendChild(btn)

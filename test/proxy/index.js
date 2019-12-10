@@ -147,31 +147,87 @@
 
 // proxy 生成dom
 
-const dom = new Proxy({}, {
-    get(target, property) {
-        return function (attrs = {}, ...children) {
-            const el = document.createElement(property)
-            for (let prop of Object.keys(attrs)) {
-                el.setAttribute(prop, attrs[prop])
-            }
+// const dom = new Proxy({}, {
+//     get(target, property) {
+//         return function (attrs = {}, ...children) {
+//             const el = document.createElement(property)
+//             for (let prop of Object.keys(attrs)) {
+//                 el.setAttribute(prop, attrs[prop])
+//             }
 
-            for (let child of children) {
-                if (typeof child === 'string') {
-                    child = document.createTextNode(child)
-                }
+//             for (let child of children) {
+//                 if (typeof child === 'string') {
+//                     child = document.createTextNode(child)
+//                 }
 
-                el.appendChild(child)
-            }
+//                 el.appendChild(child)
+//             }
 
-            return el
-        }
+//             return el
+//         }
+//     }
+// })
+
+// const el = dom.div({},
+//     'Hello,my name is ',
+//     dom.a({ href: '//www.xxx.com' }, 'Mark'),
+//     '. I like:',
+//     dom.ul({}, dom.li({}, 'The web'), dom.li({}, 'Food'), dom.li({}, '...actually that\' it')))
+
+// document.body.appendChild(el)
+
+
+// let validator = {
+//     set: function (obj, prop, value) {
+//         if (prop === 'age') {
+//             if (!Number.isInteger(value)) {
+//                 throw new TypeError('The age is not an integer')
+//             }
+
+//             if (value > 200) {
+//                 throw new RangeError('The age seems invalid')
+//             }
+//             obj[prop] = value
+//         }
+//     }
+// }
+
+// let person = new Proxy({}, validator)
+
+// try {
+//     person.age = 100
+
+//     console.log(person.age)
+//     person.age = 'young'
+
+//     console.log(person.age)
+//     person.age = 300
+// } catch (error) {
+//     console.log(error)
+// }
+
+
+// 防止内部属性外部读写
+
+const handler = {
+    get(target, key){
+        invariantt(key, 'get')
+        return target[key]
+    },
+    set(target, key, value){
+        invariantt(key, 'set')
+        target[key] = value
+        return true
     }
-})
+}
 
-const el = dom.div({},
-    'Hello,my name is ',
-    dom.a({ href: '//www.xxx.com' }, 'Mark'),
-    '. I like:',
-    dom.ul({}, dom.li({}, 'The web'), dom.li({}, 'Food'), dom.li({}, '...actually that\' it')))
+function invariantt(key, action){
+    if(key[0] === '_') {
+        throw new Error(`Invalid attemp to ${action} private "${key} property`)
+    }
+}
 
-document.body.appendChild(el)
+const target = {}
+const proxy = new Proxy(target, handler)
+// proxy._prop
+proxy._prop = 'c'

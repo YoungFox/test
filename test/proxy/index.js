@@ -143,3 +143,35 @@
 // a.reverseInt = n => n.toString().split("").reverse().join("") | 0
 
 // console.log( pipe(3).double.pow.reverseInt.get )
+
+
+// proxy 生成dom
+
+const dom = new Proxy({}, {
+    get(target, property) {
+        return function (attrs = {}, ...children) {
+            const el = document.createElement(property)
+            for (let prop of Object.keys(attrs)) {
+                el.setAttribute(prop, attrs[prop])
+            }
+
+            for (let child of children) {
+                if (typeof child === 'string') {
+                    child = document.createTextNode(child)
+                }
+
+                el.appendChild(child)
+            }
+
+            return el
+        }
+    }
+})
+
+const el = dom.div({},
+    'Hello,my name is ',
+    dom.a({ href: '//www.xxx.com' }, 'Mark'),
+    '. I like:',
+    dom.ul({}, dom.li({}, 'The web'), dom.li({}, 'Food'), dom.li({}, '...actually that\' it')))
+
+document.body.appendChild(el)

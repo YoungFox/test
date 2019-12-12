@@ -209,25 +209,73 @@
 
 // 防止内部属性外部读写
 
-const handler = {
-    get(target, key){
-        invariantt(key, 'get')
-        return target[key]
-    },
-    set(target, key, value){
-        invariantt(key, 'set')
-        target[key] = value
-        return true
-    }
-}
+// const handler = {
+//     get(target, key){
+//         invariantt(key, 'get')
+//         return target[key]
+//     },
+//     set(target, key, value){
+//         invariantt(key, 'set')
+//         target[key] = value
+//         return true
+//     }
+// }
 
-function invariantt(key, action){
-    if(key[0] === '_') {
-        throw new Error(`Invalid attemp to ${action} private "${key} property`)
-    }
-}
+// function invariantt(key, action){
+//     if(key[0] === '_') {
+//         throw new Error(`Invalid attemp to ${action} private "${key} property`)
+//     }
+// }
 
-const target = {}
-const proxy = new Proxy(target, handler)
-// proxy._prop
-proxy._prop = 'c'
+// const target = {}
+// const proxy = new Proxy(target, handler)
+// // proxy._prop
+// proxy._prop = 'c'
+
+// set的第四个属性
+// const handler = {
+//     set: function (obj, prop, value, receiver) {
+//         obj[prop] = receiver
+//     }
+// }
+
+// const proxy = new Proxy({}, handler)
+// proxy.foo = 'bar'
+// console.log(
+//     proxy.foo === proxy
+// )
+
+
+
+
+// apply方法拦截函数的调用、call和apply操作
+
+// var target = function () { return 'I am the target' }
+
+// var handler = {
+//     apply: function (){
+//         return 'I am the proxy'
+//     }
+// }
+
+// var p = new Proxy(target, handler)
+
+// console.log(p())
+
+
+
+// this问题
+
+// const target = {
+//   m: function () {
+//     console.log(this)
+//     console.log(this === proxy)
+//   }
+// }
+
+// const handler = {}
+
+// const proxy = new Proxy(target, handler)
+// target.m()
+// proxy.m()
+

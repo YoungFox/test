@@ -115,60 +115,209 @@
     // salesOffices.trigger('squareMeter88', 200)
     // salesOffices.trigger('squareMeter88', 200)
 
+
+
+    // 全局的发布-订阅对象
+    // var Observer = (function () {
+    //   var clientList = {}
+
+    //   var subscribe = function (key, fn) {
+    //     if (!clientList[key]) {
+    //       clientList[key] = []
+    //     }
+    //     clientList[key].push(fn)
+    //   }
+
+    //   var publish = function () {
+    //     var key = Array.prototype.shift.call(arguments)
+    //     var fns = clientList[key]
+
+    //     if (!fns || fns.length == 0) {
+    //       return
+    //     }
+
+    //     for (var i = 0, fn; fn = fns[i]; i++) {
+    //       fn.apply(this, arguments)
+    //     }
+
+    //   }
+
+    //   var remove = function (key, fn) {
+    //     var fns = clientList[key]
+
+    //     if (!fns) {
+    //       rertturn
+    //     }
+
+    //     if (!fn && fns) {
+    //       fns.length = 0
+    //     } else {
+    //       for (var k = fns.length - 1; k >= 0; k--) {
+    //         var _fn = fns[k]
+    //         if (_fn === fn) {
+    //           fns.splice(k, 1)
+    //         }
+    //       }
+    //     }
+    //   }
+    //   return {
+    //     subscribe,
+    //     publish,
+    //     remove
+    //   }
+    // })()
+
+    // Observer.subscribe('a', function (x, y) {
+    //   console.log('登录成功，名字是：' + x)
+    // })
+
+    // Observer.publish('a', 'ywl')
+
+
+
+    // 先发布后订阅
+
+
     var Observer = (function () {
-      var clientList = {}
+      var global = this
+      var _default = 'default'
 
-      var subscribe = function (key, fn) {
-        if (!clientList[key]) {
-          clientList[key] = []
-        }
-        clientList[key].push(fn)
-      }
+      var _Observer = (function () {
+        var _publish
+        var _subscribe
+        var _remove
+        var _dbg
+        var _slice = Array.prototype.slice
+        var _shift = Array.prototype.shift
+        var _unshift = Array.prototype.unshift
 
-      var publish = function () {
-        var key = Array.prototype.shift.call(arguments)
-        var fns = clientList[key]
+        var namespaceCache = {}
 
-        if (!fns || fns.length == 0) {
-          return
-        }
-
-        for (var i = 0, fn; fn = fns[i]; i++) {
-          fn.apply(this, arguments)
-        }
-
-      }
-
-      var remove = function (key, fn) {
-        var fns = clientList[key]
-
-        if (!fns) {
-          rertturn
+        _subscribe = function (key, fn, cache) {
+          if (!cache[key]) {
+            cache[key] = []
+          }
+          cache[key].push(fn)
         }
 
-        if (!fn && fns) {
-          fns.length = 0
-        } else {
-          for (var k = fns.length - 1; k >= 0; k--) {
-            var _fn = fns[k]
-            if (_fn === fn) {
-              fns.splice(k, 1)
+        _remove = function (key, cache, fn) {
+          if (cache[key]) {
+            if (fn) {
+              for (var i = cache[key].length; i >= 0; i--) {
+                if (cache[key] === fn) {
+                  cache[key].splice(i, 1)
+                }
+              }
+            } else {
+              cache[key] = []
             }
           }
         }
-      }
-      return {
-        subscribe,
-        publish,
-        remove
-      }
+
+        _publish = function () {
+          var cache = _shift.call(arguments)
+          var key = _shift.call(arguments)
+          var args = arguments
+          var self = this
+
+          var stack = cache[key]
+
+          if (!stack || !stack.length) {
+            return
+          }
+
+          stack.forEach(element => {
+            element.apply(self, args)
+          });
+        }
+
+        _dbg = function () {
+          console.log(namespaceCache)
+        }
+
+        return {
+          create: function (namespace) {
+            var namespace = namespace || _default
+
+            if (namespace) {
+              if (namespaceCache[namespace]) {
+                return namespaceCache[namespace]
+              }
+            }
+
+            var cache = {}
+            var offlineStack = []
+
+            var proxyObserver = {
+              subscribe: function (key, fn, last) {
+                _subscribe(key, fn, cache)
+                if (
+                  !this.list[key]
+                ) {
+                  this.list[key] = []
+                }
+                this.list[key].push(fn)
+                if (offlineStack === null) {
+                  return
+                }
+                if (last === 'last') { } else {
+                  offlineStack.forEach(args => {
+                    fn.apply(args)
+                  })
+                }
+              },
+              remove: function (key, fn) {
+                _remove(key, cache, fn)
+              },
+              publish: function () {
+                var fn
+                var args
+                var self = this
+
+                if (offlineStack) {
+                  offlineStack.push(args)
+                }
+
+                _unshift.call(arguments, cache)
+                args = arguments
+
+                _publish.apply(self, args)
+              },
+              list: {
+              }
+            }
+
+            if (namespace && !namespaceCache[namespaceCache]) {
+              return namespaceCache[namespace] = proxyObserver
+            }
+
+            return proxyObserver
+          },
+          remove: function (key, fn) {
+            var observer = this.create()
+            observer.remove(key, fn)
+          },
+          subscribe: function (key, fn, last) {
+            if (!key || !fn || typeof fn !== 'function') {
+              return
+            }
+            var observer = this.create()
+            observer.subscribe(key, fn, last)
+          },
+          publish: function () {
+            var observer = this.create()
+            observer.publish.apply(this, arguments)
+          },
+          dbg: function () {
+            _dbg()
+          }
+        }
+
+      })()
+
+      return _Observer
     })()
 
-    Observer.subscribe('a', function (x, y) {
-      console.log('登录成功，名字是：' + x)
-    })
-
-    Observer.publish('a', 'ywl')
   </script>
 </body>
 

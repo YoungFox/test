@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this</title>
+</head>
+<body>
+    <script>
+        let a = {
+            getThis: function(){
+                console.log(this)
+            }
+        }    
+        a.getThis()
+
+        window.name = 'globalName'
+        function b(){
+            console.log(this.name)
+        }
+        b()
+
+        let c = {
+            name: 'internalName',
+            getName: function(){
+                return this.name
+            }
+        }
+
+        console.log(c.getName())
+
+        let getName = c.getName
+        console.log(getName())
+
+        function d(){
+            'usr strict'
+            console.log(this)
+        }
+
+        d()
+
+        function MyClass(){
+            this.name = 'sven'
+        }
+        var obj = new MyClass()
+        console.log(obj.name)
+
+        function MyClass1(){
+            this.name = 'sven'
+            return {
+                name: 'anne'
+            }
+        }
+
+        var obj1 = new MyClass1()
+        console.log(obj1.name)
+
+
+        function MyClass2(){
+            this.name = 'sven'
+            return 'anne'
+        }
+        var obj2 = new MyClass2()
+        console.log(obj2.name)
+
+        var obj1 = {
+            name: 'sven',
+            getName: function(){
+                return this.name
+            }
+        }
+
+        var obj2 = {
+            name: 'name'
+        }
+
+        console.log(obj1.getName())
+        console.log(obj1.getName.call(obj2))
+    </script>
+</body>
+</html>

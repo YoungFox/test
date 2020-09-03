@@ -72,3 +72,5 @@ typings/
 # Serverless directories
 .serverless
 pkg
+test/go/src/github.com/
+test/go/src/google.golang.org/

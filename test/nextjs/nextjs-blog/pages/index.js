@@ -45,6 +45,13 @@ export default function Home({ allPostsData }) {
           ))}
         </ul>
       </section>
+      <section>
+        <form action="api/hello" method="post" >
+          <input name="email" type="text"></input>
+          <input type="submit" value="提交"></input>
+        </form>
+      </section>
+
     </Layout>
   )
 }

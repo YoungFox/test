@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "dev-custom": "node server.js",
+    "start-custom": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "date-fns": "^2.16.1",
@@ -17,6 +19,7 @@
     "react-dom": "16.13.1",
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
+    "swr": "^0.5.0",
     "tailwindcss": "^1.9.5"
   }
 }

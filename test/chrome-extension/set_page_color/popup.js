@@ -5,6 +5,13 @@
 'use strict';
 try {
   document.addEventListener('DOMContentLoaded', function () {
+    var btn0 = document.querySelector('#invert0')
+    btn0.addEventListener('click', function () {
+      chrome.tabs.executeScript(null,
+        { code: "document.documentElement.style.filter='invert(1)'" });
+      window.close();
+    });
+
     var btn1 = document.querySelector('#invert')
     btn1.addEventListener('click', function () {
       chrome.tabs.executeScript(null,
@@ -15,7 +22,7 @@ try {
     var btn2 = document.querySelector('#reset')
     btn2.addEventListener('click', function () {
       chrome.tabs.executeScript(null,
-        { code: "document.body.style.filter='unset'" });
+        { code: "document.body.style.filter='unset';document.documentElement.style.filter='unset'" });
       window.close();
     });
   });

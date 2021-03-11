@@ -2,32 +2,52 @@ import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import Alert from '../components/alert'
-import { getSortedPostsData } from '../lib/posts'
+// import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
+import useSWR from 'swr'
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
+// export async function getStaticProps() {
+//   const allPostsData = getSortedPostsData()
+//   console.log(allPostsData)
+//   return {
+//     props: {
+//       allPostsData
+//     }
+//   }
+// }
+
+export async function getServerSideProps(context) {
+  
   return {
     props: {
-      allPostsData
-    }
+      allPostsData: []
+    }, // will be passed to the page component as props
   }
 }
 
 export default function Home({ allPostsData }) {
+  const { data, error } = useSWR('/api/x/index/coinsincome', fetch)
+  console.log(data)
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>自我介绍</p>
-        <Alert>12333333333</Alert>
+      <h1 className="title">
+        Read{' '}
+        <Link href="/posts/x">
+          <a>this page!</a>
+        </Link>
+      </h1>
+        <p>self</p>
+        <Alert type="error">12333333333</Alert>
         <p>
           (This is a sample website - you’ll be building a site like this on{' '}
           <a href="https://www.nextjs.cn/learn">our Next.js tutorial</a>.)
         </p>
+
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
@@ -45,12 +65,12 @@ export default function Home({ allPostsData }) {
           ))}
         </ul>
       </section>
-      <section>
+      {/* <section>
         <form action="api/hello" method="post" >
           <input name="email" type="text"></input>
           <input type="submit" value="提交"></input>
         </form>
-      </section>
+      </section> */}
 
     </Layout>
   )

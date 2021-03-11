@@ -17,7 +17,7 @@
 
     .wrap {
       width: 160px;
-      height: 100px;
+      height: 150px;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
@@ -57,7 +57,7 @@
       background: #aaaaaa;
     }
 
-    #invert {
+    .invert {
       color: #fff;
       background: #1890ff;
       border-color: #1890ff;
@@ -66,7 +66,7 @@
       box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
     }
 
-    #invert:hover {
+    .invert:hover {
       color: #fff;
       background: #40a9ff;
       border-color: #40a9ff
@@ -90,7 +90,8 @@
 
 <body>
   <div class="wrap">
-    <div class="btn" id="invert">颜色反转</div>
+    <div class="btn invert" id="invert0">颜色反转(html)</div>
+    <div class="btn invert" id="invert">颜色反转(body)</div>
     <div class="btn" id="reset">还原</div>
   </div>
 </body>

@@ -1,0 +1,8 @@
+# 开发环境调试容器
+version: '3'
+services:
+  node:
+    build: .
+    ports:
+     - "8000:3000"
+ 

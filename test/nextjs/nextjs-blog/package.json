@@ -10,6 +10,7 @@
     "start-custom": "NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "antd": "^4.13.1",
     "date-fns": "^2.16.1",
     "gray-matter": "^4.0.2",
     "next": "9.5.3",

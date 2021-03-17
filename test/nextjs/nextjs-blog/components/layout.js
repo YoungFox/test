@@ -7,6 +7,7 @@ const name = 'TEST'
 export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({ children, home }) {
+  console.log('FFFFFFFFFFFFFFF')
   return (
     <div className={styles.container}>
       <Head>

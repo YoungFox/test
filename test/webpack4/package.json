@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "fea-entry": "^1.0.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "uglifyjs-webpack-plugin": "^2.2.0"
   },
   "devDependencies": {

@@ -21,9 +21,17 @@ class ProductRow extends React.Component {
       </span>;
 
     return (
+     
       <tr>
         <td>{name}</td>
         <td>{product.price}</td>
+        <style jsx>
+        {`
+        td {
+          color: green;
+        }
+        `}
+      </style>
       </tr>
     );
   }

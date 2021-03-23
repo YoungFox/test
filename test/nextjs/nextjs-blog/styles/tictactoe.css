@@ -48,3 +48,6 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
+.hightlight {
+  border: 3px solid #ad2;
+}

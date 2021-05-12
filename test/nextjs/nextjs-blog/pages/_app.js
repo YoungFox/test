@@ -5,6 +5,6 @@ export default function App({ Component, pageProps }) {
     return <Component {...pageProps} />
 }
 App.getInitialProps = (context) => {
-    console.log('======', context)
+    // console.log('======', context)
     return {}
 }

@@ -25,14 +25,12 @@ export default function Post({ postData }) {
 export async function getStaticPaths() {
   const paths = getAllPostIds()
   return {
-    paths:[
-    ],
+    paths,
     fallback: false 
   }
 }
 
 export async function getStaticProps({ params }) {
-  console.log(params)
   const postData = await getPostData(params.id)
   return {
     props: {
